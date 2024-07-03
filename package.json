@@ -1,0 +1,29 @@
+{
+  "name": "taskratchet-trevor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx ./src/adapters/cli.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "dotenv": "^16.4.5",
+    "openai": "^4.52.3",
+    "telegraf": "^4.16.3",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "eslint": "^9.6.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.8.0",
+    "prettier": "^3.3.2",
+    "typescript-eslint": "^7.15.0"
+  }
+}
