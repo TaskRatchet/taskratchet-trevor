@@ -1,6 +1,15 @@
 import readline from "readline";
 import bot from "../bot/index.js";
 import chalk from "chalk";
+import { marked, MarkedExtension } from "marked";
+import { markedTerminal } from "marked-terminal";
+
+marked.use(
+  markedTerminal({
+    reflowText: true,
+    width: 80,
+  }) as MarkedExtension,
+);
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -14,11 +23,10 @@ async function prompt() {
       rl.close();
     } else {
       const m = await bot(answer);
-      console.log(`\n${m}\n`);
+      console.log(`\n${marked.parse(m)}\n`);
       prompt();
     }
   });
 }
 
-// Start the recursive questioning
 prompt();

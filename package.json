@@ -15,6 +15,8 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "dotenv": "^16.4.5",
+    "marked": "^13.0.1",
+    "marked-terminal": "^7.1.0",
     "openai": "^4.52.3",
     "telegraf": "^4.16.3",
     "tsx": "^4.16.2",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.6.0",
+    "@types/marked-terminal": "^6.1.1",
     "@types/node": "^20.14.9",
     "eslint": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
