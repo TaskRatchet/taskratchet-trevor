@@ -1,16 +1,9 @@
 import OpenAI from "openai";
 import { AssistantStreamEvents } from "openai/lib/AssistantStream";
 import { Thread } from "openai/resources/beta/threads/threads";
+import getClient from "./getClient";
 
-let client: OpenAI;
 let thread: Thread;
-
-function getClient() {
-  if (!client) {
-    client = new OpenAI();
-  }
-  return client;
-}
 
 async function getThread() {
   if (!thread) {

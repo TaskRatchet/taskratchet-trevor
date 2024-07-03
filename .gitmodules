@@ -1,0 +1,3 @@
+[submodule "submodules/taskratchet.com"]
+	path = submodules/taskratchet.com
+	url = https://github.com/taskratchet/taskratchet.com

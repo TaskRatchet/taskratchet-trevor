@@ -1,5 +1,5 @@
 import readline from "readline";
-import bot from "../bot/index";
+import bot from "../bot/index.js";
 import chalk from "chalk";
 
 const rl = readline.createInterface({

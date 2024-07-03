@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx ./src/adapters/cli.ts"
+    "dev": "tsx ./src/adapters/cli.ts",
+    "update-knowledge": "tsx ./scripts/update-knowledge.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.6.0",
+    "@types/node": "^20.14.9",
     "eslint": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.8.0",
