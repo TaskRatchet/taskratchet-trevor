@@ -1,6 +1,6 @@
-import { addMessage, getGptResponse } from "../services/openai";
+import { addMessage, getGptResponse } from "../services/openai/index.js";
 import "dotenv/config";
-import { getTasks } from "../services/taskratchet";
+import { getTasks } from "../services/taskratchet/index.js";
 
 function formatCents(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`;
@@ -11,8 +11,13 @@ async function getResponse(message: string): Promise<string | null> {
     return "Hello, World!";
   } else if (message.includes("/tasks")) {
     const tasks = await getTasks();
-    return tasks
-      .filter((t) => t.status === "pending")
+    const pending = tasks.filter((t) => t.status === "pending");
+
+    if (!pending.length) {
+      return "No pending tasks!";
+    }
+
+    return pending
       .map(
         (t) => `${t.task} by ${t.due} or pay ${formatCents(Number(t.cents))}`,
       )
