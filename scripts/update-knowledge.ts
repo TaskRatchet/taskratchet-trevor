@@ -24,4 +24,4 @@ console.log(mdFiles);
 
 const streams = mdFiles.map((f) => fs.createReadStream(f));
 
-await updateVectorStore(streams);
+await updateVectorStore("taskratchet.com", streams);

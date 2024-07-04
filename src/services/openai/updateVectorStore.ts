@@ -1,19 +1,22 @@
 import { ReadStream } from "fs";
 import getClient from "./getClient.js";
 
-export default async function updateVectorStore(streams: ReadStream[]) {
+export default async function updateVectorStore(
+  storeName: string,
+  streams: ReadStream[],
+) {
   const c = getClient();
 
   const stores = await c.beta.vectorStores.list();
 
   for (const store of stores.data) {
-    if (store.name === "taskratchet.com") {
+    if (store.name === storeName) {
       await c.beta.vectorStores.del(store.id);
     }
   }
 
   const store = await c.beta.vectorStores.create({
-    name: "taskratchet.com",
+    name: storeName,
   });
 
   await c.beta.vectorStores.fileBatches.uploadAndPoll(store.id, {
