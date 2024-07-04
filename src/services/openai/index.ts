@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { AssistantStreamEvents } from "openai/lib/AssistantStream";
 import { Thread } from "openai/resources/beta/threads/threads";
-import getClient from "./getClient";
+import getClient from "./getClient.js";
 
 let thread: Thread;
 

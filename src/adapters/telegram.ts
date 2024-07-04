@@ -1,5 +1,5 @@
 import { Telegraf } from "telegraf";
-import trevor from "../bot/index";
+import trevor from "../bot/index.js";
 import { message } from "telegraf/filters";
 
 const BOT_TOKEN = process.env.BOT_TOKEN || "";
