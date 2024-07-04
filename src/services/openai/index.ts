@@ -37,6 +37,13 @@ export async function getGptResponse(message: string): Promise<string> {
 
   return new Promise((resolve) => {
     const event: keyof AssistantStreamEvents = "textDone";
-    r.on(event, (text) => resolve(text.value));
+    r.on(event, (text) => {
+      const t = text.value;
+      const c = t.replaceAll(/【.*?】/g, "");
+      const r = text.annotations.length
+        ? `\n\n(${text.annotations.length} documents referenced)`
+        : "";
+      return resolve(`${c}${r}`);
+    });
   });
 }
