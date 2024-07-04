@@ -1,6 +1,7 @@
 import getClient from "./getClient.js";
 import deleteVectorStore from "./deleteVectorStore.js";
 import { Uploadable } from "openai/uploads.mjs";
+import deleteAllFiles from "./deleteAllFiles.js";
 
 export default async function replaceVectoryStore(
   storeName: string,
@@ -8,6 +9,7 @@ export default async function replaceVectoryStore(
 ) {
   const c = getClient();
 
+  await deleteAllFiles();
   await deleteVectorStore(storeName);
 
   const store = await c.beta.vectorStores.create({
