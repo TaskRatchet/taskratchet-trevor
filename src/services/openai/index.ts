@@ -1,17 +1,7 @@
 import OpenAI from "openai";
 import { AssistantStreamEvents } from "openai/lib/AssistantStream";
-import { Thread } from "openai/resources/beta/threads/threads";
 import getClient from "./getClient.js";
-
-let thread: Thread;
-
-async function getThread() {
-  if (!thread) {
-    thread = await getClient().beta.threads.create();
-  }
-
-  return thread;
-}
+import { getThread } from "./getThread.js";
 
 export async function addMessage(
   body: OpenAI.Beta.Threads.Messages.MessageCreateParams,

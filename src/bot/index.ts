@@ -1,6 +1,7 @@
 import { addMessage, getGptResponse } from "../services/openai/index.js";
 import "dotenv/config";
 import { getTasks } from "../services/taskratchet/index.js";
+import { resetThread } from "../services/openai/getThread.js";
 
 function formatCents(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`;
@@ -9,7 +10,10 @@ function formatCents(cents: number): string {
 async function getResponse(message: string): Promise<string | null> {
   if (message.includes("hello")) {
     return "Hello, World!";
-  } else if (message.includes("/tasks")) {
+  } else if (message === "/reset") {
+    await resetThread();
+    return "Conversation reset";
+  } else if (message === "/tasks") {
     const tasks = await getTasks();
     const pending = tasks.filter((t) => t.status === "pending");
 
