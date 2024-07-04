@@ -1,3 +1,6 @@
 [submodule "submodules/taskratchet.com"]
 	path = submodules/taskratchet.com
 	url = https://github.com/taskratchet/taskratchet.com
+[submodule "submodules/beemblog"]
+	path = submodules/beemblog
+	url = https://github.com/beeminder/blog
