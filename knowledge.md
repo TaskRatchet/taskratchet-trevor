@@ -11,6 +11,11 @@ A bot for use with TaskRatchet. Built with Supabase. Deployed to edge functions.
 - typescript
 - vitest
 
+## Setup Requirements
+
+- Supabase CLI must be installed globally: `brew install supabase/tap/supabase`
+- https://supabase.com/docs/guides/local-development/cli/getting-started
+
 ## Architecture
 
 - Create an abstraction on top of Discord and Telegram to make it easier to add new platforms in the future.
