@@ -43,6 +43,16 @@ A bot for use with TaskRatchet. Built with Supabase. Deployed to edge functions.
    supabase logs
    ```
 
+### Local Ports
+
+- Functions API: 54321
+- Database: 54322
+- Studio: 54323
+- Inbucket: 54324
+- Storage: 54325
+- Auth: 54326
+- Realtime: 54327
+
 ## Architecture
 
 - Create an abstraction on top of Discord and Telegram to make it easier to add new platforms in the future.
