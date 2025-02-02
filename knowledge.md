@@ -16,6 +16,33 @@ A bot for use with TaskRatchet. Built with Supabase. Deployed to edge functions.
 - Supabase CLI must be installed globally: `brew install supabase/tap/supabase`
 - https://supabase.com/docs/guides/local-development/cli/getting-started
 
+## Development Setup
+
+1. Copy supabase/.env.example to supabase/.env and fill in values
+2. Create Telegram bot via BotFather and get token
+3. Get TaskRatchet API credentials
+4. Run `pnpm install` to install dependencies
+5. Run `pnpm test` to verify setup
+
+## Local Development
+
+1. Start the Supabase functions locally:
+   ```bash
+   pnpm run dev
+   ```
+2. Use ngrok or similar to expose local endpoint:
+   ```bash
+   ngrok http 54321
+   ```
+3. Set webhook URL in Telegram bot settings:
+   ```
+   https://<your-ngrok-url>/functions/v1/telegram-bot
+   ```
+4. Monitor function logs:
+   ```bash
+   supabase logs
+   ```
+
 ## Architecture
 
 - Create an abstraction on top of Discord and Telegram to make it easier to add new platforms in the future.
