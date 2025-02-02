@@ -102,6 +102,9 @@ A bot for use with TaskRatchet. Built with Supabase. Deployed to edge functions.
 - Keep platform-specific code in separate modules
 - Share common utilities and interfaces
 - Use TypeScript for type safety
+- Platform-specific code goes in functions/<platform>
+- Shared code goes in src/
+- Types and interfaces in src/types/
 
 ### Security
 
