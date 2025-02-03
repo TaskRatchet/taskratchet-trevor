@@ -56,6 +56,12 @@ A bot for use with TaskRatchet. Built with Supabase. Deployed to edge functions.
 ## Architecture
 
 - Create an abstraction on top of Discord and Telegram to make it easier to add new platforms in the future.
+- Abstract Supabase-specific code to avoid vendor lock-in:
+  - Keep edge function handlers thin
+  - Move business logic to platform-agnostic services
+  - Isolate database access to dedicated service layer
+  - Use TypeScript interfaces for Supabase types
+  - Environment variables for all Supabase-specific config
 
 ## Development Guidelines
 
@@ -96,6 +102,13 @@ A bot for use with TaskRatchet. Built with Supabase. Deployed to edge functions.
 - Keep functions small and focused
 
 ## Best Practices
+
+### Avoiding Vendor Lock-in
+- Keep core business logic independent of Supabase
+- Use dependency injection for services
+- Abstract platform-specific code behind interfaces
+- Make edge functions thin adapters to core logic
+- Store all platform config in environment variables
 
 ### Code Organization
 
