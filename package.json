@@ -1,16 +1,16 @@
 {
   "name": "taskratchet-trevor",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "cf-typegen": "wrangler types"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.7.3",
+    "@cloudflare/workers-types": "^4.20250129.0",
+    "typescript": "^5.5.2",
     "wrangler": "^3.107.3"
   }
 }
