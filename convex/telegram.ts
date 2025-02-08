@@ -1,13 +1,13 @@
-import { httpAction, HttpActionCtx } from "./_generated/server";
+import { httpAction } from "./_generated/server";
 
-export const telegramWebhook = httpAction(async (ctx: HttpActionCtx, req) => {
+export const telegramWebhook = httpAction(async (ctx, req) => {
   // Ensure the Telegram bot token is set via environment variable.
-  const botToken = ctx.env.TELEGRAM_BOT_TOKEN;
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
   if (!botToken) {
     console.error("TELEGRAM_BOT_TOKEN is not defined in the environment.");
     return new Response("Server configuration error", { status: 500 });
   }
-
+``
   // Only allow POST requests.
   if (req.method !== "POST") {
     return new Response("Method Not Allowed", { status: 405 });
