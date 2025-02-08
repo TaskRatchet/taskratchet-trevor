@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 export const storeBeeminderToken = mutation({
@@ -28,5 +28,17 @@ export const storeBeeminderToken = mutation({
         beeminderUsername,
       });
     }
+  },
+});
+
+export const getUser = query({
+  args: {
+    telegramId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("users")
+      .withIndex("by_telegram_id", (q) => q.eq("telegramId", args.telegramId))
+      .first();
   },
 });
