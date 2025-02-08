@@ -1,4 +1,5 @@
 import { httpAction } from "./_generated/server";
+import { api } from "./_generated/api";
 
 export const telegramWebhook = httpAction(async (ctx, req) => {
   // Ensure the Telegram bot token is set via environment variable.
@@ -27,21 +28,68 @@ export const telegramWebhook = httpAction(async (ctx, req) => {
       const { message } = update;
       console.log(`Received message from ${message.from?.username || 'unknown'}: ${message.text}`);
       
-      // Handle /start command
-      if (message.text.startsWith('/start')) {
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            chat_id: message.chat.id,
-            text: 'Hello! I am your TaskRatchet bot. How can I help you today?'
-          }),
-        });
+      const text = message.text.trim();
+      const chatId = message.chat.id;
+      const telegramId = message.from?.id?.toString();
+
+      if (!telegramId) {
+        throw new Error("No telegram ID found in message");
       }
-    } else {
-      console.log("Received non-message update:", update);
+
+      // Handle /start command
+      if (text.startsWith('/start')) {
+        await sendTelegramMessage(botToken, chatId, 
+          'Welcome to TaskRatchet Bot! To get started, you\'ll need to connect your Beeminder account.\n\n' +
+          'Use /connect_beeminder <token> to connect your Beeminder account.\n\n' +
+          'You can find your token at https://www.beeminder.com/settings/api_token'
+        );
+        return new Response("OK", { status: 200 });
+      }
+
+      // Handle /connect_beeminder command
+      if (text.startsWith('/connect_beeminder')) {
+        const token = text.split(' ')[1]?.trim();
+        if (!token) {
+          await sendTelegramMessage(botToken, chatId,
+            'Please provide your Beeminder API token.\n\n' +
+            'Usage: /connect_beeminder <token>\n\n' +
+            'You can find your token at https://www.beeminder.com/settings/api_token'
+          );
+          return new Response("OK", { status: 200 });
+        }
+
+        try {
+          // Verify the token by fetching the user's info from Beeminder
+          const beeminderResponse = await fetch(
+            `https://www.beeminder.com/api/v1/users/me.json?auth_token=${token}`
+          );
+          const beeminderData = await beeminderResponse.json();
+
+          if (!beeminderResponse.ok) {
+            throw new Error(beeminderData.errors || 'Invalid token');
+          }
+
+          // Store the user's Beeminder token
+          await ctx.runMutation(api.users.storeBeeminderToken, {
+            telegramId,
+            beeminderToken: token,
+            beeminderUsername: beeminderData.username,
+          });
+
+          await sendTelegramMessage(botToken, chatId,
+            `Successfully connected to Beeminder account: ${beeminderData.username}\n\n` +
+            'You can now use the following commands:\n' +
+            '/goals - List your Beeminder goals\n' +
+            '/add <goal> <value> - Add a datapoint to a goal'
+          );
+        } catch (error) {
+          console.error('Error connecting Beeminder:', error);
+          await sendTelegramMessage(botToken, chatId,
+            'Failed to connect to Beeminder. Please check your token and try again.'
+          );
+        }
+        return new Response("OK", { status: 200 });
+      }
     }
 
     // Return OK to acknowledge receipt.
@@ -51,3 +99,16 @@ export const telegramWebhook = httpAction(async (ctx, req) => {
     return new Response("Internal Server Error", { status: 500 });
   }
 });
+
+async function sendTelegramMessage(botToken: string, chatId: number, text: string) {
+  await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+    }),
+  });
+}
