@@ -7,7 +7,7 @@ export const telegramWebhook = httpAction(async (ctx, req) => {
     console.error("TELEGRAM_BOT_TOKEN is not defined in the environment.");
     return new Response("Server configuration error", { status: 500 });
   }
-``
+
   // Only allow POST requests.
   if (req.method !== "POST") {
     return new Response("Method Not Allowed", { status: 405 });
