@@ -123,8 +123,13 @@ export const telegramWebhook = httpAction(async (ctx, req) => {
 
           // Format goals list with key information
           const goalsText = goals
-            .sort((a, b) => a.losedate - b.losedate) // Sort by urgency
-            .map(goal => {
+            .sort((a: { losedate: number }, b: { losedate: number }) => a.losedate - b.losedate) // Sort by urgency
+            .map((goal: { 
+              losedate: number;
+              slug: string;
+              title?: string;
+              limsum: string;
+            }) => {
               const daysLeft = Math.ceil((goal.losedate * 1000 - Date.now()) / (1000 * 60 * 60 * 24));
               const urgencyEmoji = 
                 daysLeft <= 1 ? '🔴' :
