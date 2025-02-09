@@ -42,3 +42,30 @@ export const getUser = query({
       .first();
   },
 });
+
+export const storeTaskratchetToken = mutation({
+  args: {
+    telegramId: v.string(),
+    taskratchetToken: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { telegramId, taskratchetToken } = args;
+
+    // Find existing user or create new one
+    const existing = await ctx.db
+      .query("users")
+      .withIndex("by_telegram_id", (q) => q.eq("telegramId", telegramId))
+      .first();
+
+    if (existing) {
+      return await ctx.db.patch(existing._id, {
+        taskratchetToken,
+      });
+    } else {
+      return await ctx.db.insert("users", {
+        telegramId,
+        taskratchetToken,
+      });
+    }
+  },
+});

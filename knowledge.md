@@ -6,6 +6,8 @@ Build a Telegram bot interface for TaskRatchet to allow users to manage their ta
 ## Key Technologies
 - Convex for backend & database
 - Telegram Bot API for messaging
+- TaskRatchet API v2 for task management
+- Beeminder API for goal tracking
 - TypeScript for type safety
 
 ## Development Guidelines
@@ -27,4 +29,9 @@ Build a Telegram bot interface for TaskRatchet to allow users to manage their ta
 ## Resources
 - [Convex Documentation](https://docs.convex.dev)
 - [Telegram Bot API](https://core.telegram.org/bots/api)
-- [TaskRatchet API](https://taskratchet.com/api)
+- [TaskRatchet API v2](https://taskratchet.com/api)
+- [Beeminder API](https://api.beeminder.com/v1/)
+
+## API Integration
+- TaskRatchet: Uses API v2 with Bearer token authentication
+- Beeminder: Uses API v1 with auth_token parameter

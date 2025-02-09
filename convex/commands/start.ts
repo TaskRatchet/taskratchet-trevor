@@ -9,8 +9,10 @@ export async function execute(
   const { message, botToken } = options;
   const chatId = message.chat.id;
   const welcomeText =
-    'Welcome to TaskRatchet Bot! To get started, you\'ll need to connect your Beeminder account.\n\n' +
-    'Use /connect_beeminder <token> to connect your Beeminder account.\n\n' +
+    'Welcome to TaskRatchet Bot! To get started, you\'ll need to connect your accounts.\n\n' +
+    'Use /connect_taskratchet <token> to connect your TaskRatchet account.\n' +
+    'You can find your token at https://taskratchet.com/account\n\n' +
+    'Use /connect_beeminder <token> to connect your Beeminder account.\n' +
     'You can find your token at https://www.beeminder.com/settings/api_token';
   await sendTelegramMessage(botToken, chatId, welcomeText);
 }
