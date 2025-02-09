@@ -14,9 +14,11 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as commands_connectBeeminder from "../commands/connectBeeminder.js";
+import type * as commands_connectTaskratchet from "../commands/connectTaskratchet.js";
 import type * as commands_goals from "../commands/goals.js";
 import type * as commands_index from "../commands/index.js";
 import type * as commands_start from "../commands/start.js";
+import type * as commands_tasks from "../commands/tasks.js";
 import type * as commands_utils from "../commands/utils.js";
 import type * as hello from "../hello.js";
 import type * as http from "../http.js";
@@ -33,9 +35,11 @@ import type * as users from "../users.js";
  */
 declare const fullApi: ApiFromModules<{
   "commands/connectBeeminder": typeof commands_connectBeeminder;
+  "commands/connectTaskratchet": typeof commands_connectTaskratchet;
   "commands/goals": typeof commands_goals;
   "commands/index": typeof commands_index;
   "commands/start": typeof commands_start;
+  "commands/tasks": typeof commands_tasks;
   "commands/utils": typeof commands_utils;
   hello: typeof hello;
   http: typeof http;

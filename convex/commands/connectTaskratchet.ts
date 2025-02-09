@@ -19,7 +19,7 @@ export async function execute(
     await sendTelegramMessage(
       botToken,
       chatId,
-      'Please provide your TaskRatchet API v2 token.\n\n' +
+      'Please provide your TaskRatchet API token.\n\n' +
       'Usage: /connect_taskratchet <token>\n\n' +
       'You can find your token at https://taskratchet.com/account'
     );
@@ -27,15 +27,15 @@ export async function execute(
   }
 
   try {
-    // Verify the token by making a test API call
-    const response = await fetch('https://api.taskratchet.com/api/v2/user', {
+    // Verify the credentials by making a test API call
+    const response = await fetch('https://api.taskratchet.com/api2/me', {
       headers: {
-        'Authorization': `Bearer ${params}`
+        Authorization: `ApiKey-v2 ${params}`
       }
     });
 
     if (!response.ok) {
-      throw new Error('Invalid token');
+      throw new Error('Invalid credentials');
     }
 
     // Store the user's TaskRatchet token

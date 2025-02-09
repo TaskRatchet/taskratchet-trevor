@@ -29,9 +29,15 @@ Build a Telegram bot interface for TaskRatchet to allow users to manage their ta
 ## Resources
 - [Convex Documentation](https://docs.convex.dev)
 - [Telegram Bot API](https://core.telegram.org/bots/api)
-- [TaskRatchet API v2](https://taskratchet.com/api)
+- [TaskRatchet API v2](https://docs.taskratchet.com/help/api-v2.html)
 - [Beeminder API](https://api.beeminder.com/v1/)
 
 ## API Integration
-- TaskRatchet: Uses API v2 with Bearer token authentication
+- TaskRatchet: Uses API v2 endpoints with v2 authentication
+  - Base URL: https://api.taskratchet.com/api2/
+  - Authentication: Uses Authorization header
+    - Format: Authorization: ApiKey-v2 <token>
+  - Key endpoints:
+    - GET /me/tasks - List tasks
+    - POST /me/tasks - Create task
 - Beeminder: Uses API v1 with auth_token parameter
