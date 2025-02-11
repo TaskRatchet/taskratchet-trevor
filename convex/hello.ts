@@ -2,7 +2,7 @@ import { query } from "./_generated/server";
 
 export const hello = query({
   args: {},
-  handler: async (ctx) => {
+  handler: async () => {
     return "hello world";
   },
 });

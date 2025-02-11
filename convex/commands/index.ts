@@ -5,7 +5,7 @@ import * as goals from "./goals";
 import * as connectTaskratchet from "./connectTaskratchet";
 import * as tasks from "./tasks";
 
-export const telegramCommands: Command[] = [
+export const commands: Command[] = [
   { command: start.command, execute: start.execute },
   { command: connectBeeminder.command, execute: connectBeeminder.execute },
   { command: goals.command, execute: goals.execute },

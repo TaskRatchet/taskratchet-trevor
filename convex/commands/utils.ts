@@ -1,3 +1,6 @@
+import { ActionCtx } from "../_generated/server";
+import { BotMessage } from "./messaging";
+
 export interface TelegramMessage {
   chat: {
     id: number;
@@ -10,8 +13,8 @@ export interface TelegramMessage {
 }
 
 export interface CommandContext {
-  ctx: any;
-  message: TelegramMessage;
+  ctx: ActionCtx;
+  message: BotMessage;
   botToken: string;
 }
 
@@ -20,11 +23,15 @@ export interface Command {
   execute: (params: string, options: CommandContext) => Promise<void>;
 }
 
-export async function sendTelegramMessage(botToken: string, chatId: number, text: string): Promise<void> {
+export async function sendTelegramMessage(
+  botToken: string,
+  chatId: number,
+  text: string,
+): Promise<void> {
   await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       chat_id: chatId,

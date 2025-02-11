@@ -1,11 +1,13 @@
 import { sendTelegramMessage } from "./utils";
 import { api } from "../_generated/api";
+import { ActionCtx } from "../_generated/server";
+import { BotMessage } from "./messaging";
 
 export const command = "/connect_beeminder";
 
 export async function execute(
   params: string,
-  options: { ctx: any; message: any; botToken: string }
+  options: { ctx: ActionCtx; message: BotMessage; botToken: string },
 ): Promise<void> {
   const { message, botToken, ctx } = options;
   const chatId = message.chat.id;
@@ -19,9 +21,9 @@ export async function execute(
     await sendTelegramMessage(
       botToken,
       chatId,
-      'Please provide your Beeminder API token.\n\n' +
-      'Usage: /connect_beeminder <token>\n\n' +
-      'You can find your token at https://www.beeminder.com/settings/api_token'
+      "Please provide your Beeminder API token.\n\n" +
+        "Usage: /connect_beeminder <token>\n\n" +
+        "You can find your token at https://www.beeminder.com/settings/api_token",
     );
     return;
   }
@@ -29,12 +31,12 @@ export async function execute(
   try {
     // Verify the token by fetching the user's info from Beeminder
     const beeminderResponse = await fetch(
-      `https://www.beeminder.com/api/v1/users/me.json?auth_token=${params}`
+      `https://www.beeminder.com/api/v1/users/me.json?auth_token=${params}`,
     );
     const beeminderData = await beeminderResponse.json();
 
     if (!beeminderResponse.ok) {
-      throw new Error(beeminderData.errors || 'Invalid token');
+      throw new Error(beeminderData.errors || "Invalid token");
     }
 
     // Store the user's Beeminder token
@@ -48,16 +50,16 @@ export async function execute(
       botToken,
       chatId,
       `Successfully connected to Beeminder account: ${beeminderData.username}\n\n` +
-      'You can now use the following commands:\n' +
-      '/goals - List your Beeminder goals\n' +
-      '/add <goal> <value> - Add a datapoint to a goal'
+        "You can now use the following commands:\n" +
+        "/goals - List your Beeminder goals\n" +
+        "/add <goal> <value> - Add a datapoint to a goal",
     );
   } catch (error) {
-    console.error('Error connecting Beeminder:', error);
+    console.error("Error connecting Beeminder:", error);
     await sendTelegramMessage(
       botToken,
       chatId,
-      'Failed to connect to Beeminder. Please check your token and try again.'
+      "Failed to connect to Beeminder. Please check your token and try again.",
     );
   }
 }
